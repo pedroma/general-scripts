@@ -1,0 +1,27 @@
+<html>
+    <head><title>Feed Merger</title></head>
+    <body>
+        <h1>Welcome to feed merger</h1>
+        <h3>This service allows you to merge feeds and get one link with all your feeds</h3>
+        {% if not logged %}
+            <strong>you are not logged in</strong><br/>
+            Please <a href="{{ login_url }}">log in</a> to edit your feeds.
+        {% else %}
+            <strong>you are logged in</strong><br/>
+            Click here to <a href="{{ login_url }}">log out</a>.
+        {% endif %}
+        {% if logged %}
+            <h3>My Feeds</h3>
+            <ul>
+                {% for feed in feeds %}
+                <li>{{ feed.feed }} <a href="?remove={{ feed.key }}">remove</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h1>Add new feed to filter</h1>
+        <form name="add-feed" action="" method="post">
+            <input name="feed"/>
+            <input type="submit" value="Add"/>
+        </form>
+    </body>
+</html>
