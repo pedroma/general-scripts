@@ -7,7 +7,6 @@ from data import Feed
 class MainPage(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
-        logged_in = False
         template_values = {}
 
         if user:

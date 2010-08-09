@@ -14,14 +14,14 @@
             <h3>My Feeds</h3>
             <ul>
                 {% for feed in feeds %}
-                <li>{{ feed.feed }} <a href="?remove={{ feed.key }}">remove</a></li>
+                  <li>{{ feed.feed }} <a href="?remove={{ feed.key }}">remove</a></li>
                 {% endfor %}
             </ul>
+            <h1>Add new feed to filter</h1>
+            <form name="add-feed" action="" method="post">
+                <input name="feed"/>
+                <input type="submit" value="Add"/>
+            </form>
         {% endif %}
-        <h1>Add new feed to filter</h1>
-        <form name="add-feed" action="" method="post">
-            <input name="feed"/>
-            <input type="submit" value="Add"/>
-        </form>
     </body>
 </html>
