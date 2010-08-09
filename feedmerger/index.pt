@@ -3,6 +3,9 @@
     <body>
         <h1>Welcome to feed merger</h1>
         <h3>This service allows you to merge feeds and get one link with all your feeds</h3>
+        {% if error %}
+            <strong style="color:red;">You probably wrote the feed url wrong. Check it and add again.</strong><br/>
+        {% endif %}
         {% if not logged %}
             <strong>you are not logged in</strong><br/>
             Please <a href="{{ login_url }}">log in</a> to edit your feeds.
@@ -14,7 +17,7 @@
             <h3>My Feeds</h3>
             <ul>
                 {% for feed in feeds %}
-                  <li>{{ feed.feed }} <a href="?remove={{ feed.key }}">remove</a></li>
+                    <li>{{ feed.title }} - {{ feed.feed }} <a href="?remove={{ feed.key }}">remove</a></li>
                 {% endfor %}
             </ul>
             <h1>Add new feed to filter</h1>

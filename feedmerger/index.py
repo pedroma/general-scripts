@@ -3,6 +3,7 @@ from google.appengine.api import users
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
 from data import Feed
+import feedparser
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -29,7 +30,12 @@ class MainPage(webapp.RequestHandler):
         user = users.get_current_user()
         feed = self.request.get('feed')
         # check if feed is valid
-        feed_obj = Feed(owner=user,feed=feed)
+        f = feedparser.parse(feed)
+        if f.get('status',0) != 200:
+            template_values = {'logged':True,'error':True}
+            self.response.out.write(template.render('index.pt',template_values))
+            return
+        feed_obj = Feed(title=f['feed']['title'],owner=user,feed=feed)
         feed_obj.put()
         self.redirect('/')
 
