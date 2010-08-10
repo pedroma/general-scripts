@@ -1,0 +1,12 @@
+.title{
+    height: 50px;
+    line-height: 50px;
+}
+.title a{
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+.title a:visited {
+    color: black;
+}
