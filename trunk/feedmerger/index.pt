@@ -12,7 +12,12 @@
         {% else %}
             <strong>you are logged in</strong><br/>
             Click here to <a href="{{ login_url }}">log out</a>.<br/>
-            Use <a href="{{ feed_url }}">this url</a> to access your merged feeds.
+            {% ifequal n_feeds  0 %}
+                <strong>You have no feeds</strong>
+            {% else %}
+                You have {{ n_feeds }} feeds.<br/>
+                Use <a href="{{ feed_url }}">this url</a> to access your merged feeds.
+            {% endifequal %}
         {% endif %}
         {% if logged %}
             <h3>My Feeds</h3>
@@ -23,7 +28,7 @@
             </ul>
             <h1>Add new feed to filter</h1>
             <form name="add-feed" action="" method="post">
-                <input name="feed"/>
+                <textarea style="width:500px;height:120px;" name="feed"></textarea><br/>
                 <input type="submit" value="Add"/>
             </form>
         {% endif %}

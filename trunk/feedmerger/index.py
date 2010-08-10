@@ -13,12 +13,18 @@ class MainPage(webapp.RequestHandler):
         if user:
             key = self.request.get('remove')
             if key:
-                Feed.get(key).delete()
+                try:
+                    Feed.get(key).delete()
+                except:
+                    pass
             logged_in = True
             url = users.create_logout_url(self.request.uri)
             feeds = Feed.all().filter('owner =',user)
-            feed_url = 'http://feedmerger.appspot.com/feed/%s'%feeds[0].key()
-            template_values.update({'feeds':feeds,'feed_url':feed_url})
+            n_feeds = feeds.count()
+            if n_feeds != 0:
+                feed_url = 'http://feedmerger.appspot.com/feed/%s'%feeds[0].key()
+                template_values.update({'feed_url':feed_url})
+            template_values.update({'feeds':feeds,'n_feeds':n_feeds})
         else:
             logged_in = False
             url = users.create_login_url(self.request.uri)
@@ -31,13 +37,15 @@ class MainPage(webapp.RequestHandler):
         user = users.get_current_user()
         feed = self.request.get('feed')
         # check if feed is valid
-        f = feedparser.parse(feed)
-        if f.get('status',0) != 200:
-            template_values = {'logged':True,'error':True}
-            self.response.out.write(template.render('index.pt',template_values))
-            return
-        feed_obj = Feed(title=f['feed']['title'],owner=user,feed=feed)
-        feed_obj.put()
+        lines = feed.split('\n')
+        for line in lines:
+            f = feedparser.parse(line)
+            if f.get('status',0) in [200,302]:
+                feed_obj = Feed(title=f.feed.title,owner=user,feed=line)
+                feed_obj.put()
+                #template_values = {'logged':True,'error':True}
+                #self.response.out.write(template.render('index.pt',template_values))
+                #return
         self.redirect('/')
 
 application = webapp.WSGIApplication(
