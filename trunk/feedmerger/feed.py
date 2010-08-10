@@ -1,5 +1,4 @@
 from google.appengine.ext import webapp
-from google.appengine.api import users
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
 from data import Feed
@@ -7,9 +6,13 @@ import feedparser
 
 class GenerateFeed(webapp.RequestHandler):
     """ """
-    def get(self):
+    def get(self,key):
         template_values = {}
-        user = users.get_current_user()
+        try:
+            feed = Feed.get(key)
+        except:
+            return "Unauthorized"
+        user = feed.owner
         feeds = Feed.all().filter('owner =',user)
         entries = []
         for feed in feeds:
@@ -21,7 +24,7 @@ class GenerateFeed(webapp.RequestHandler):
 
 application = webapp.WSGIApplication(
                                      [
-                                         ('/feed.*', GenerateFeed),
+                                         (r'/feed/(.*)', GenerateFeed),
                                      ],
                                      debug=True)
 

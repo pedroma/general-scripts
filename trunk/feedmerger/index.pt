@@ -11,7 +11,8 @@
             Please <a href="{{ login_url }}">log in</a> to edit your feeds.
         {% else %}
             <strong>you are logged in</strong><br/>
-            Click here to <a href="{{ login_url }}">log out</a>.
+            Click here to <a href="{{ login_url }}">log out</a>.<br/>
+            Use <a href="{{ feed_url }}">this url</a> to access your merged feeds.
         {% endif %}
         {% if logged %}
             <h3>My Feeds</h3>
