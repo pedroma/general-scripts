@@ -13,6 +13,5 @@ handlers:
   login: admin
 - url: /feed.*
   script: feed.py
-  login: required
 - url: /.*
   script: index.py

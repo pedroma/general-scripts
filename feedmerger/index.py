@@ -17,7 +17,8 @@ class MainPage(webapp.RequestHandler):
             logged_in = True
             url = users.create_logout_url(self.request.uri)
             feeds = Feed.all().filter('owner =',user)
-            template_values.update({'feeds':feeds})
+            feed_url = 'http://feedmerger.appspot.com/feed/%s'%feeds[0].key()
+            template_values.update({'feeds':feeds,'feed_url':feed_url})
         else:
             logged_in = False
             url = users.create_login_url(self.request.uri)
