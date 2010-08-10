@@ -1,12 +1,42 @@
-.title{
-    height: 50px;
-    line-height: 50px;
+*{
+    font-family: Helvetica;
+    font-size: 95%;
 }
-.title a{
+img {
+    border: none;
+}
+.logout{
+    display: block;
+    float: right;
+}
+.logo{
+    height: 50px;
     vertical-align: middle;
     text-decoration: none;
     color: black;
+    font-size: 65px;
 }
-.title a:visited {
+.logo:visited {
     color: black;
+}
+.logo img{
+    height: 50px;
+    width: 50px;
+}
+.feed-list{
+    background: #DDEEF6;
+    /*background: lightblue;*/
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+.feed-list li{
+    list-style-type: none;
+    padding: 5px 0;
+}
+.feed-list a{
+    display:block;
+    float: left;
+}
+.feed-title {
+    font-weight: bold;
 }

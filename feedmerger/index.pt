@@ -5,7 +5,10 @@
         <link rel="stylesheet" type="text/css" href="styles/styles.css" />
     </head>
     <body>
-        <h1 class="title"><a href="/"><img src="/images/feedmerger.png"/>Welcome to feed merger</a></h1>
+        {% if logged %}
+            <a class="logout" href="{{ login_url }}">Sign out</a>
+        {% endif %}
+        <a href="/" class="logo"><img src="/images/feedmerger.png"/></a><a href="/" class="logo">Feedmerger</a>
         <h4>This service allows you to merge feeds and get one link with all your feeds</h4>
         {% if error %}
             <strong style="color:red;">You probably wrote the feed url wrong. Check it and add again.</strong><br/>
@@ -15,19 +18,20 @@
             Please <a href="{{ login_url }}">log in</a> to edit your feeds.
         {% else %}
             <strong>you are logged in as </strong>{{ nick }}<br/>
-            Click here to <a href="{{ login_url }}">log out</a>.<br/>
             {% ifequal n_feeds  0 %}
                 <strong>You have no feeds</strong>
             {% else %}
-                You have {{ n_feeds }} feeds.<br/>
-                Use <a href="{{ feed_url }}">this url</a> to access your merged feeds.
+                {{ n_feeds }} feeds. <a href="{{ feed_url }}">{{ feed_url }}</a>
             {% endifequal %}
         {% endif %}
         {% if logged %}
             <h3>My Feeds</h3>
-            <ul>
+            <ul class="feed-list">
                 {% for feed in feeds %}
-                    <li>{{ feed.title }} - {{ feed.feed }} <a href="?remove={{ feed.key }}"><img src="/images/remove.png"/></a></li>
+                    <li>
+                        <a href="?remove={{ feed.key }}"><img src="/images/remove.png"/></a> &nbsp;
+                        <span class="feed-title">{{ feed.title }}</span> - {{ feed.feed }}
+                    </li>
                 {% endfor %}
             </ul>
             {% ifnotequal n_feeds 0 %}
