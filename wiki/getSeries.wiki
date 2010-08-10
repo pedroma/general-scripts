@@ -1,0 +1,5 @@
+#summary This page will explain the get_series script
+
+= Introduction =
+
+== Details ==
