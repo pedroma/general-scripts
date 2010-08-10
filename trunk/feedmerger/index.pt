@@ -2,10 +2,11 @@
     <head>
         <title>Feed Merger</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="styles/styles.css" />
     </head>
     <body>
-        <h1><a href="/">Welcome to feed merger</a></h1>
-        <h3>This service allows you to merge feeds and get one link with all your feeds</h3>
+        <h1 class="title"><a href="/"><img src="/images/feedmerger.png"/>Welcome to feed merger</a></h1>
+        <h4>This service allows you to merge feeds and get one link with all your feeds</h4>
         {% if error %}
             <strong style="color:red;">You probably wrote the feed url wrong. Check it and add again.</strong><br/>
         {% endif %}
@@ -26,7 +27,7 @@
             <h3>My Feeds</h3>
             <ul>
                 {% for feed in feeds %}
-                    <li>{{ feed.title }} - {{ feed.feed }} <a href="?remove={{ feed.key }}">remove</a></li>
+                    <li>{{ feed.title }} - {{ feed.feed }} <a href="?remove={{ feed.key }}"><img src="/images/remove.png"/></a></li>
                 {% endfor %}
             </ul>
             {% ifnotequal n_feeds 0 %}
