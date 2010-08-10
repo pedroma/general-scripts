@@ -37,11 +37,11 @@ class GenerateFeed(webapp.RequestHandler):
         for rpc in rpcs:
             rpc.wait()
 
-        decorated = [(entry["date_parsed"], entry) for entry in entries]
+        decorated = [(entry["updated_parsed"], entry) for entry in entries]
         decorated.sort()
         decorated.reverse() # for most recent entries first
         sorted = [entry for (date,entry) in decorated]
-        template_values.update({'entries':entries})
+        template_values.update({'entries':sorted})
         pt = template.render('feed.pt',template_values)
         self.response.out.write(pt)
 
