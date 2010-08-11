@@ -11,18 +11,6 @@ class MainPage(webapp.RequestHandler):
         template_values = {}
 
         if user:
-            key = self.request.get('remove')
-            if key:
-                try:
-                    Feed.get(key).delete()
-                    self.redirect('/')
-                except:
-                    pass
-            if key == 'all':
-                feeds = Feed.all().filter('owner =',user)
-                for feed in feeds:
-                    feed.delete()
-                    self.redirect('/')
             logged_in = True
             url = users.create_logout_url(self.request.uri)
             feeds = Feed.all().filter('owner =',user)
@@ -50,14 +38,29 @@ class MainPage(webapp.RequestHandler):
             if f.get('status',0) in [200,302]:
                 feed_obj = Feed(title=f.feed.title,owner=user,feed=line)
                 feed_obj.put()
-                #template_values = {'logged':True,'error':True}
-                #self.response.out.write(template.render('index.pt',template_values))
-                #return
         self.redirect('/')
+
+class RemoveFeeds(webapp.RequestHandler):
+    def get(self,key):
+        user = users.get_current_user()
+        if user is None:
+            self.redirect('/')
+        try:
+            Feed.get(key).delete()
+            self.redirect('/')
+        except:
+            pass
+        if key == 'all':
+            feeds = Feed.all().filter('owner =',user)
+            for feed in feeds:
+                feed.delete()
+                self.redirect('/')
+
 
 application = webapp.WSGIApplication(
                                      [
-                                         ('/', MainPage),
+                                         (r'/', MainPage),
+                                         (r'/remove/(.*)', RemoveFeeds),
                                      ],
                                      debug=True)
 
