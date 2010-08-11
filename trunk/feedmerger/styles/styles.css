@@ -2,6 +2,10 @@
     font-family: Helvetica;
     font-size: 95%;
 }
+body {
+    width: 960px;
+    margin: auto;
+}
 img {
     border: none;
 }
@@ -11,17 +15,11 @@ img {
 }
 .logo{
     height: 50px;
-    vertical-align: middle;
     text-decoration: none;
-    color: black;
-    font-size: 65px;
+    margin: 250px;
 }
 .logo:visited {
     color: black;
-}
-.logo img{
-    height: 50px;
-    width: 50px;
 }
 .feed-list{
     background: #DDEEF6;

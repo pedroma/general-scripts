@@ -8,7 +8,7 @@
         {% if logged %}
             <a class="logout" href="{{ login_url }}">Sign out</a>
         {% endif %}
-        <a href="/" class="logo"><img src="/images/feedmerger.png"/></a><a href="/" class="logo">Feedmerger</a>
+        <a href="/" class="logo"><img src="/images/feedmerger.png"/></a>
         <h4>This service allows you to merge feeds and get one link with all your feeds</h4>
         {% if error %}
             <strong style="color:red;">You probably wrote the feed url wrong. Check it and add again.</strong><br/>
@@ -29,13 +29,14 @@
             <ul class="feed-list">
                 {% for feed in feeds %}
                     <li>
-                        <a href="?remove={{ feed.key }}"><img src="/images/remove.png"/></a> &nbsp;
+                        <a href="/remove/{{ feed.key }}"><img src="/images/remove.png"/></a> &nbsp;
                         <span class="feed-title">{{ feed.title }}</span> - {{ feed.feed }}
                     </li>
                 {% endfor %}
             </ul>
             {% ifnotequal n_feeds 0 %}
-                <a href="?remove=all">Delete All</a>
+                <a href="/remove/all">Delete All</a>
+                <a href="/export/csv">Export to CSV</a>
             {% endifnotequal %}
             <h1>Add new feed to filter</h1>
             <form name="add-feed" action="" method="post">

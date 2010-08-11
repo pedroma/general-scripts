@@ -1,5 +1,5 @@
 application: feedmerger
-version: testing
+version: 1
 runtime: python
 api_version: 1
 
@@ -18,5 +18,7 @@ handlers:
   login: admin
 - url: /feed.*
   script: feed.py
+- url: /export.*
+  script: export.py
 - url: /.*
   script: index.py
